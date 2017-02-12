@@ -70,7 +70,11 @@
       vm.authentication.user = response;
       Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Signup successful!' });
       // And redirect to the previous or home page
-      $state.go($state.previous.state.name || 'home', $state.previous.params);
+      // $state.go($state.previous.state.name || 'home', $state.previous.params);
+
+      var previousUrl = $state.previous.href;
+      $window.location.href = previousUrl? '/'+previousUrl : '/';
+      
     }
 
     function onUserSignupError(response) {
@@ -83,7 +87,7 @@
       Notification.info({ message: 'Welcome123 ' + response.firstName });
 
       // And redirect to the previous or home page
-      //$state.go($state.previous.state.name || 'home', $state.previous.params, {reload: true});
+      //$state.go($state.previous.state.name || 'home', $state.previous.params);
 
       var previousUrl = $state.previous.href;
       $window.location.href = previousUrl? '/'+previousUrl : '/';
