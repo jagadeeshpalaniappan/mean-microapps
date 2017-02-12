@@ -131,14 +131,16 @@ exports.proxyAllMicroAppRequest = function (req, res, next) {
 
   console.log('-------------------proxyAllMicroAppRequest---------------------');
 
+  var customHeader = {};
+
   var options = {
-    uri: 'http://localhost:7001'+ '/*',
+    url: 'http://localhost:4000'+ '/*',
     timeout: 10000,
     headers: customHeader,
     originalQuery: req.originalUrl.indexOf('?') >= 0
   };
 
-  // requestProxy(options)(req, res, next);
+  requestProxy(options)(req, res, next);
 
 };
 
