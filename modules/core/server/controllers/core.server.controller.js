@@ -42,7 +42,7 @@ exports.renderIndex = function (req, res) {
   }
 
   res.render('modules/core/server/views/index', {
-    user: JSON.stringify(safeUserObject),
+    user: safeUserObject? JSON.stringify(safeUserObject) : null,
     sharedConfig: JSON.stringify(config.shared)
   });
 };
@@ -100,7 +100,7 @@ exports.renderMicroAppIndex = function (req, res) {
         }
 
         res.render('modules/core/server/views/mappindex', {
-          user: JSON.stringify(safeUserObject),
+          user: safeUserObject? JSON.stringify(safeUserObject) : null,
           sharedConfig: JSON.stringify(config.shared),
           body: microAppBody
         });
@@ -114,7 +114,7 @@ exports.renderMicroAppIndex = function (req, res) {
 
 
         res.render('modules/core/server/views/mappindex', {
-          user: JSON.stringify(safeUserObject),
+          user: safeUserObject? JSON.stringify(safeUserObject) : null,
           sharedConfig: JSON.stringify(config.shared)
         });
 

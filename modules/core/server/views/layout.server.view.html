@@ -42,7 +42,8 @@
 
 
 
-  <nav class="navbar navbar-fixed-top navbar-inverse">
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -54,7 +55,7 @@
     </div>
 
     
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <nav class="collapse navbar-collapse" id="myNavbar">
 
 
       <ul class="nav navbar-nav">
@@ -64,52 +65,62 @@
       </ul>
 
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/#/authentication/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/#/authentication/signin"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-      </ul>
+    
+        {{#if user}}
+          
+            <ul class="nav navbar-nav navbar-right">
+
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href>
+                  <img alt="Admin User" class="header-profile-image" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
+                  <span>xxxx User</span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  
+                  <li>
+                    <a href="/#/settings/profile">Edit Profile</a>
+                  </li>
+                  <li>
+                    <a  href="/#/settings/picture">Edit Profile Picture</a>
+                  </li>
+                  <li>
+                    <a href="/#/settings/password">Change Password</a>
+                  </li>
+                  <li>
+                    <a href="/#/settings/accounts">Manage Social Accounts</a>
+                  </li>
+                  
+                  <li class="divider"></li>
+                  <li><a href="/api/auth/signout"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+
+                </ul>
+              </li>
+
+            </ul>
 
 
-      <ul class="nav navbar-nav navbar-right">
+        {{else}}
+        
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/#/authentication/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="/#/authentication/signin"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+            </ul>
 
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href>
-            <img alt="Admin User" class="header-profile-image" ng-src="/modules/users/client/img/profile/default.png" src="/modules/users/client/img/profile/default.png">
-            <span>xxxx User</span> <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            
-            <li>
-              <a href="/#/settings/profile">Edit Profile</a>
-            </li>
-            <li>
-              <a  href="/#/settings/picture">Edit Profile Picture</a>
-            </li>
-            <li>
-              <a href="/#/settings/password">Change Password</a>
-            </li>
-            <li>
-              <a href="/#/settings/accounts">Manage Social Accounts</a>
-            </li>
-            
-            <li class="divider"></li>
-            <li><a href="/api/auth/signout"><span class="glyphicon glyphicon-log-in"></span> Sign Out</a></li>
+        {{/if}}
 
-          </ul>
-        </li>
 
-      </ul>
-
-    </div>
+    </nav>
   </div>
-</nav>
+  </header>
 
 
 
 
   <section class="content">
     <section class="container">
+      
       {{{block "content"}}}
+
     </section>
   </section>
 
@@ -126,8 +137,13 @@
 
   <!--Embedding The User Object-->
   <script type="text/javascript">
+    
+    
+
     var user = {{{ user }}};
     var env = "{{ env }}";
+
+
   </script>
 
   <!--Load The Socket.io File-->
