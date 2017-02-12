@@ -53,7 +53,7 @@ exports.renderIndex = function (req, res) {
  */
 exports.renderMicroAppIndex = function (req, res) {
 
-  console.log('-------------------renderMicroAppIndex---------------------');
+  console.log('-------------------renderMicroAppIndex ['+req.params.mappId+']---------------------');
 
   // Micro Apps Configuration::
   var mappsConfigured = [{id:'mapp1', name:'Micro App1'}, {id:'mapp2', name:'Micro App2'}];
@@ -68,32 +68,60 @@ exports.renderMicroAppIndex = function (req, res) {
   }
 
 
+  // Request Micro App --html
+  var options = {
+    method: 'GET',
+    uri: 'http://localhost:4000',
+    resolveWithFullResponse: true
+  };
+
+  rp(options)
+      .then(function (response) {
+          console.log("succeeded with status %d", response.statusCode);
+
+        var microAppBody = response.body;
+
+        // Common:
+        var safeUserObject = null;
+        
+        if (req.user) {
+          safeUserObject = {
+            displayName: validator.escape(req.user.displayName),
+            provider: validator.escape(req.user.provider),
+            username: validator.escape(req.user.username),
+            created: req.user.created.toString(),
+            roles: req.user.roles,
+            profileImageURL: req.user.profileImageURL,
+            email: validator.escape(req.user.email),
+            lastName: validator.escape(req.user.lastName),
+            firstName: validator.escape(req.user.firstName),
+            additionalProvidersData: req.user.additionalProvidersData
+          };
+        }
+
+        res.render('modules/core/server/views/mappindex', {
+          user: JSON.stringify(safeUserObject),
+          sharedConfig: JSON.stringify(config.shared),
+          body: microAppBody
+        });
 
 
 
 
-  // Common:
-  var safeUserObject = null;
-  
-  if (req.user) {
-    safeUserObject = {
-      displayName: validator.escape(req.user.displayName),
-      provider: validator.escape(req.user.provider),
-      username: validator.escape(req.user.username),
-      created: req.user.created.toString(),
-      roles: req.user.roles,
-      profileImageURL: req.user.profileImageURL,
-      email: validator.escape(req.user.email),
-      lastName: validator.escape(req.user.lastName),
-      firstName: validator.escape(req.user.firstName),
-      additionalProvidersData: req.user.additionalProvidersData
-    };
-  }
+      })
+      .catch(function (err) {
+          // Request failed...
 
-  res.render('modules/core/server/views/mappindex', {
-    user: JSON.stringify(safeUserObject),
-    sharedConfig: JSON.stringify(config.shared)
-  });
+
+        res.render('modules/core/server/views/mappindex', {
+          user: JSON.stringify(safeUserObject),
+          sharedConfig: JSON.stringify(config.shared)
+        });
+
+
+
+
+    });
 
 
 };
