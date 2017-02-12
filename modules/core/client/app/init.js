@@ -13,10 +13,14 @@
   bootstrapConfig.$inject = ['$compileProvider', '$locationProvider', '$httpProvider', '$logProvider'];
 
   function bootstrapConfig($compileProvider, $locationProvider, $httpProvider, $logProvider) {
+
+
+    /*
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
     }).hashPrefix('!');
+    */
 
     $httpProvider.interceptors.push('authInterceptor');
 

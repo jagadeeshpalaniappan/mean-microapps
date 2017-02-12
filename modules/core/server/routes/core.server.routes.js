@@ -11,5 +11,13 @@ module.exports = function (app) {
   app.route('/:url(api|modules|lib)/*').get(core.renderNotFound);
 
   // Define application route
+  app.route('/mapp/:mappId').get(core.renderMicroAppIndex);
+  
+  app.route('/mapp/:mappId/*').get(core.proxyAllMicroAppRequest);
+  
+  
   app.route('/*').get(core.renderIndex);
+
+  
+
 };
