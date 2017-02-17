@@ -1,0 +1,8 @@
+{
+  "name": "jmean",
+  "description": "MEAN.js App",
+  "repository": "https://github.com/jagadeeshtechgeek/mean-microapps",
+  "logo": "https://mlab.com/company/brand/resources/mLab-logo-onlight.png",
+  "keywords": ["node", "express", "angular", "angular2", "MEAN", "mongodb", "REST", "API"],
+  "addons": ["mongolab"]
+}
